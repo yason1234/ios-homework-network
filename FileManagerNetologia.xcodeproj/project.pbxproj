@@ -9,21 +9,26 @@
 /* Begin PBXBuildFile section */
 		371B00732922C41300B5B275 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 371B00722922C41300B5B275 /* AppDelegate.swift */; };
 		371B00752922C41300B5B275 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 371B00742922C41300B5B275 /* SceneDelegate.swift */; };
-		371B00772922C41300B5B275 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 371B00762922C41300B5B275 /* ViewController.swift */; };
+		371B00772922C41300B5B275 /* FileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 371B00762922C41300B5B275 /* FileViewController.swift */; };
 		371B007C2922C41400B5B275 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 371B007B2922C41400B5B275 /* Assets.xcassets */; };
 		371B007F2922C41400B5B275 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 371B007D2922C41400B5B275 /* LaunchScreen.storyboard */; };
 		371B00872923460C00B5B275 /* ImagePicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 371B00862923460C00B5B275 /* ImagePicker.swift */; };
+		371B00892925F26A00B5B275 /* VerificationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 371B00882925F26A00B5B275 /* VerificationViewController.swift */; };
+		371B008C2926BB8800B5B275 /* KeychainAccess in Frameworks */ = {isa = PBXBuildFile; productRef = 371B008B2926BB8800B5B275 /* KeychainAccess */; };
+		371B008E2927DB0200B5B275 /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 371B008D2927DB0200B5B275 /* SettingsViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		371B006F2922C41300B5B275 /* FileManagerNetologia.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = FileManagerNetologia.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		371B00722922C41300B5B275 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		371B00742922C41300B5B275 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
-		371B00762922C41300B5B275 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		371B00762922C41300B5B275 /* FileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileViewController.swift; sourceTree = "<group>"; };
 		371B007B2922C41400B5B275 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		371B007E2922C41400B5B275 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		371B00802922C41400B5B275 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		371B00862923460C00B5B275 /* ImagePicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImagePicker.swift; sourceTree = "<group>"; };
+		371B00882925F26A00B5B275 /* VerificationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VerificationViewController.swift; sourceTree = "<group>"; };
+		371B008D2927DB0200B5B275 /* SettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -31,6 +36,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				371B008C2926BB8800B5B275 /* KeychainAccess in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -58,7 +64,9 @@
 			children = (
 				371B00722922C41300B5B275 /* AppDelegate.swift */,
 				371B00742922C41300B5B275 /* SceneDelegate.swift */,
-				371B00762922C41300B5B275 /* ViewController.swift */,
+				371B00882925F26A00B5B275 /* VerificationViewController.swift */,
+				371B00762922C41300B5B275 /* FileViewController.swift */,
+				371B008D2927DB0200B5B275 /* SettingsViewController.swift */,
 				371B00862923460C00B5B275 /* ImagePicker.swift */,
 				371B007B2922C41400B5B275 /* Assets.xcassets */,
 				371B007D2922C41400B5B275 /* LaunchScreen.storyboard */,
@@ -83,6 +91,9 @@
 			dependencies = (
 			);
 			name = FileManagerNetologia;
+			packageProductDependencies = (
+				371B008B2926BB8800B5B275 /* KeychainAccess */,
+			);
 			productName = FileManagerNetologia;
 			productReference = 371B006F2922C41300B5B275 /* FileManagerNetologia.app */;
 			productType = "com.apple.product-type.application";
@@ -111,6 +122,9 @@
 				Base,
 			);
 			mainGroup = 371B00662922C41300B5B275;
+			packageReferences = (
+				371B008A2926BB8800B5B275 /* XCRemoteSwiftPackageReference "KeychainAccess" */,
+			);
 			productRefGroup = 371B00702922C41300B5B275 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -137,10 +151,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				371B00772922C41300B5B275 /* ViewController.swift in Sources */,
+				371B00772922C41300B5B275 /* FileViewController.swift in Sources */,
 				371B00872923460C00B5B275 /* ImagePicker.swift in Sources */,
+				371B00892925F26A00B5B275 /* VerificationViewController.swift in Sources */,
 				371B00732922C41300B5B275 /* AppDelegate.swift in Sources */,
 				371B00752922C41300B5B275 /* SceneDelegate.swift in Sources */,
+				371B008E2927DB0200B5B275 /* SettingsViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -348,6 +364,25 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		371B008A2926BB8800B5B275 /* XCRemoteSwiftPackageReference "KeychainAccess" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/kishikawakatsumi/KeychainAccess.git";
+			requirement = {
+				branch = master;
+				kind = branch;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		371B008B2926BB8800B5B275 /* KeychainAccess */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 371B008A2926BB8800B5B275 /* XCRemoteSwiftPackageReference "KeychainAccess" */;
+			productName = KeychainAccess;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 371B00672922C41300B5B275 /* Project object */;
 }

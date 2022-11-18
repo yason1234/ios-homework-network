@@ -6,21 +6,46 @@
 //
 
 import UIKit
+import KeychainAccess
 
-class ViewController: UIViewController {
+class FileViewController: UIViewController, FileVCDelegate {
     
     private lazy var tableView = UITableView()
     private let documentPath = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true)[0]
     private var contentOfFile: [String] {
-        do {
-           return try FileManager.default.contentsOfDirectory(atPath: documentPath)
-        } catch {
-            print(error.localizedDescription)
+        get {
+            do {
+                if !isSorted {
+                    return try FileManager.default.contentsOfDirectory(atPath: documentPath).sorted(by: {$0 > $1})
+                } else {
+                    return try FileManager.default.contentsOfDirectory(atPath: documentPath).sorted(by: {$0 < $1})
+                }
+            } catch {
+                print(error.localizedDescription)
+            }
+            return []
+        } set {
+            
         }
-        return []
     }
     private lazy var imagePicker = ImagePicker()
-    private lazy var rightButton = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(addImage))
+    private lazy var rightButton: UIButton = {
+        let button = UIButton()
+        button.setTitleColor(.darkGray, for: .normal)
+        button.layer.cornerRadius = 10
+        button.layer.borderWidth = 2
+        button.layer.borderColor = UIColor.black.cgColor
+        button.setImage(UIImage(systemName: "plus"), for: .normal)
+        button.translatesAutoresizingMaskIntoConstraints = false
+        return button
+    }()
+    private var isSorted: Bool {
+        get {
+            UserDefaults.standard.bool(forKey: "sorted")
+        } set {
+            UserDefaults.standard.set(newValue, forKey: "sorted")
+        }
+    }
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -40,20 +65,20 @@ class ViewController: UIViewController {
         tableView.dataSource = self
         tableView.register(UITableViewCell.self, forCellReuseIdentifier: "cell")
         
-        navigationItem.rightBarButtonItem = rightButton
-        
         imagePicker.delegate = self
     }
     
-    @objc private func addImage() {
+    @objc internal func addImage() {
         imagePicker.presentPicker(self)
     }
 }
 
-extension ViewController {
+extension FileViewController {
     
     private func setConstraints() {
         NSLayoutConstraint.activate([
+           // rightButton
+            
             tableView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
             tableView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             tableView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
@@ -63,7 +88,7 @@ extension ViewController {
 }
 
 //MARK: tableView delegate && dataSource
-extension ViewController: UITableViewDelegate, UITableViewDataSource {
+extension FileViewController: UITableViewDelegate, UITableViewDataSource {
    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         contentOfFile.count
@@ -88,7 +113,7 @@ extension ViewController: UITableViewDelegate, UITableViewDataSource {
     }
 }
 
-extension ViewController: imagePickerProtocol {
+extension FileViewController: imagePickerProtocol {
    
     func addImageToDocuments(_ imagePath: String) {
         
@@ -114,4 +139,50 @@ extension ViewController: imagePickerProtocol {
         imagePicker.presentAlert(alertController)
     }
 }
+
+extension FileViewController: ActionProtocol {
+    func sort() {
+        isSorted.toggle()
+        tableView.reloadData()
+        }
+    
+    func changePass() {
+        let alertController = UIAlertController(title: "Change password", message: "Enter new password", preferredStyle: .alert)
+        
+        alertController.addTextField()
+        let action = UIAlertAction(title: "Enter", style: .default) { _ in
+            guard let pass = try? Keychain().get("password") else { return }
+            guard let text =  alertController.textFields?[0].text else { return }
+            if text == pass {
+                self.presentAlert(title: "Change password", message: "Enter password", tag: 0)
+            } else {
+                self.presentAlert(title: "Oops", message: "Incorrect password", tag: 1)
+            }
+        }
+        
+        alertController.addAction(action)
+        
+        navigationController?.present(alertController, animated: true)
+    }
+    
+    private func presentAlert(title: String, message: String, tag: Int) {
+        let alertController = UIAlertController(title: title, message: message, preferredStyle: .alert)
+        
+        if tag == 0 {
+            alertController.addTextField()
+
+            let action = UIAlertAction(title: "Enter", style: .default) { _ in
+                guard let text =  alertController.textFields?[0].text else { return }
+                try? Keychain().set(text, key: "password")
+            }
+                alertController.addAction(action)
+        } else {
+            let action = UIAlertAction(title: "Ok", style: .default)
+            alertController.addAction(action)
+        }
+        
+        navigationController?.present(alertController, animated: true)
+    }
+}
+
 
